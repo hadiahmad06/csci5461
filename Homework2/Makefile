@@ -25,6 +25,9 @@ OUTPUTS = $(OUTPUT_DIR)/ArrayData.txt $(OUTPUT_DIR)/SeqData.txt
 # python3 hadiahmad/MyFDR.py output/SeqData.txt 20
 4:
 	for output in $(OUTPUTS); do $(PYTHON) $(SCRIPTS_DIR)/MyFDR.py $$output 20; done
+	for output in $(OUTPUTS); do $(PYTHON) $(SCRIPTS_DIR)/MyFDR.py $$output 50; done
+	for output in $(OUTPUTS); do $(PYTHON) $(SCRIPTS_DIR)/MyFDR.py $$output 100; done
+	for output in $(OUTPUTS); do $(PYTHON) $(SCRIPTS_DIR)/MyFDR.py $$output 200; done
 	@echo "---------------\nMyFDR.py has been run\n---------------"
 
 all: 1 2 3 4

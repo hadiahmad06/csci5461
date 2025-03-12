@@ -1,3 +1,8 @@
+# Hadi Ahmad
+# ahmad287
+# 03/06/2025
+# MyHPTest.py
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import ttest_ind, ranksums
@@ -29,7 +34,7 @@ def my_hp_test(data, dataset_name):
     p_values_ranksum = []
     
     for gene in filtered_genes:
-        t_stat, p_t = ttest_ind(group1[gene], group2[gene], equal_var=False)
+        _, p_t = ttest_ind(group1[gene], group2[gene], equal_var=False)
         _, p_r = ranksums(group1[gene], group2[gene])
         p_values_ttest.append((gene, p_t))
         p_values_ranksum.append((gene, p_r))
@@ -41,11 +46,11 @@ def my_hp_test(data, dataset_name):
     # lists top 10 genes
     print(f"Top 10 genes by t-test for {dataset_name}:")
     for gene, p in p_values_ttest[:10]:
-        print(f"{gene}: {p:.4e}")
+        print(f"{gene}: {p}")
     
     print(f"\nTop 10 genes by Wilcoxon rank-sum test for {dataset_name}:")
     for gene, p in p_values_ranksum[:10]:
-        print(f"{gene}: {p:.4e}")
+        print(f"{gene}: {p}")
     
     # count significant genes
     significant_ttest = sum(1 for _, p in p_values_ttest if p < 0.05)
@@ -65,7 +70,7 @@ def my_hp_test(data, dataset_name):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python MyHPTest.py <input_file> <num_genes>")
+        print("Usage: python MyHPTest.py <input_file>")
         sys.exit(1)
     input_file = sys.argv[1]
     header, data = load_data(input_file)

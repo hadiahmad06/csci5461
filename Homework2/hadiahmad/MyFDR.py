@@ -1,3 +1,8 @@
+# Hadi Ahmad
+# ahmad287
+# 03/06/2025
+# MyFDR.py
+
 import numpy as np
 from scipy.stats import ttest_ind
 from statsmodels.stats.multitest import multipletests
@@ -29,8 +34,8 @@ def my_fdr(filename, num_genes):
     p_values_ttest = []
     
     for gene in filtered_genes:
-        _, p_t = ttest_ind(group1[gene], group2[gene], equal_var=False)
-        p_values_ttest.append((gene, p_t))
+        _, p_value = ttest_ind(group1[gene], group2[gene], equal_var=False)
+        p_values_ttest.append((gene, p_value))
     
     # sort by p-values
     p_values_ttest.sort(key=lambda x: x[1])
@@ -45,7 +50,7 @@ def my_fdr(filename, num_genes):
     # compute upper bound of FDR
     fdr_bound = max(fdr_corrected)
     
-    print(f"Upper bound of FDR for selecting {num_genes} genes: {fdr_bound:.4f}")
+    print(f"Upper bound of FDR for selecting {num_genes} genes: {fdr_bound}")
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
@@ -54,7 +59,4 @@ if __name__ == "__main__":
     
     input_file = sys.argv[1]
     num_genes = int(sys.argv[2])
-    if num_genes not in [20, 50, 100, 200]:
-        print("Error: Number of genes must be 20, 50, 100, or 200.")
-        sys.exit(1)
     my_fdr(input_file, num_genes)
